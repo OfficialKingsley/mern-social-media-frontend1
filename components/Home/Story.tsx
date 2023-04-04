@@ -14,7 +14,7 @@ const Story = ({ name, src, profile }) => {
       <Image
         src={profile}
         alt={""}
-        className="object-cover rounded-full filter brightness-75 lg-rounded-3xl"
+        className="object-cover rounded-xl filter brightness-75 lg-rounded-3xl h-full border-4"
       />
       <p className="absolute w-5/6 text-sm font-bold text-white truncate opacity-0 lg:opacity-100 bottom-4">
         {name}

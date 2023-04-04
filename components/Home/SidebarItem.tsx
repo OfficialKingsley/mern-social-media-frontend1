@@ -16,7 +16,7 @@ const SidebarItem = ({
 }: SidebarItemProps) => {
   return (
     <Link href={linkValue}>
-      <div className="flex items-center gap-2 p-2 cursor-pointer sm:w-64 hover:bg-gray-400 rounded-xl">
+      <div className="flex items-center gap-2 p-2 cursor-pointer sm:w-52 md:w-64 hover:bg-gray-400 rounded-xl">
         {src && (
           <Image
             src={src}
