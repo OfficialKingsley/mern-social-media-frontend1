@@ -9,7 +9,6 @@ import {
   ShoppingCartIcon,
   ChatBubbleBottomCenterIcon,
   BellIcon,
-  UserIcon,
 } from "@heroicons/react/24/solid";
 import NavIcon from "./NavIcon";
 import Link from "next/link";
