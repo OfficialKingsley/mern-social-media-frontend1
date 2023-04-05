@@ -27,7 +27,7 @@ const SidebarItem = ({
           />
         )}
         {Icon && <Icon className="w-6 h-6 text-blue-500" />}
-        <p className="hidden font-medium sm:inline-flex">{textContent}</p>
+        <p className="hidden font-medium md:inline-flex">{textContent}</p>
       </div>
     </Link>
   );

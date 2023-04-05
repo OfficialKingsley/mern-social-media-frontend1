@@ -1,24 +1,22 @@
 import Image from "next/image";
 import React from "react";
 import FbLogo from "./../../public/fb-logo.webp";
-import {
-  ArrowDownIcon,
-  FlagIcon,
-  UserGroupIcon,
-} from "@heroicons/react/24/outline";
+import { ArrowDownIcon, FlagIcon } from "@heroicons/react/24/outline";
 import {
   HomeIcon,
   PlayIcon,
   MagnifyingGlassIcon,
   ShoppingCartIcon,
-  ViewColumnsIcon,
   ChatBubbleBottomCenterIcon,
   BellIcon,
   UserIcon,
 } from "@heroicons/react/24/solid";
 import NavIcon from "./NavIcon";
 import Link from "next/link";
+import { useAppSelector } from "../../hooks/redux-toolkit";
 const Navbar = () => {
+  const userState = useAppSelector((state) => state.authState);
+  const user = userState.user;
   return (
     <nav className="sticky top-0 z-50 flex items-center justify-between bg-white shadow-md sm:p-2 hover:shadow-lg lg:px-5">
       {/* lEFT nav */}
@@ -55,13 +53,20 @@ const Navbar = () => {
         {/* <Image /> ProfilePi */}
 
         <Link
-          href={"profile/id"}
-          className={"flex items-center gap-1"}
-          title={"Kingsley Ihemelandu"}
+          href={`profile/${user?._id}`}
+          className={"flex items-center "}
+          title={user?.username}
         >
-          <NavIcon Icon={UserIcon} />
+          <p className="hidden text-sm md:inline-block">@{user?.username}</p>
+
+          <Image
+            src={user?.profileImageUrl}
+            alt={user?.fullName}
+            width={40}
+            height={40}
+          />
         </Link>
-        <NavIcon Icon={ViewColumnsIcon} side={"right"} />
+        {/* <NavIcon Icon={ViewColumnsIcon} side={"right"} /> */}
         <NavIcon Icon={ChatBubbleBottomCenterIcon} side={"right"} />
         <NavIcon Icon={BellIcon} side={"right"} />
         <NavIcon Icon={ArrowDownIcon} side={"right"} />

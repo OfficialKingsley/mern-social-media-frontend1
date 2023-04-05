@@ -15,7 +15,7 @@ const NavIcon = ({ Icon, isActive = false, side }: NavIconProps) => {
       } text-gray-500 p-4 rounded-lg group`}
     >
       <Icon
-        className={`h-6 transition-all text-center sm:h-7 mx-auto ${
+        className={`h-5 transition-all text-center sm:h-7 mx-auto ${
           isActive === true && "text-blue-500"
         }  group-hover:text-blue-500 ${side === "right" && "xl:inline-flex"}`}
       />

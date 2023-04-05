@@ -12,7 +12,7 @@ import SidebarItem from "./SidebarItem";
 
 const Sidebar = () => {
   return (
-    <aside className="w-fit p-4 max-w-[600px] xl:min-w-[300px]">
+    <aside className="hidden sm:block w-fit p-4 max-w-[600px] xl:min-w-[300px]">
       <SidebarItem
         textContent={"Kingsley Ihemelandu"}
         linkValue="profile/"
