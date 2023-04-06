@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { login } from "./requests/auth";
+import { IUser } from "../types/IUser";
 
 type InitialAuthState = {
   user;
