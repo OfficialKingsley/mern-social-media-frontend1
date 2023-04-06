@@ -5,13 +5,13 @@ import { IUser } from "../types/IUser";
 type InitialAuthState = {
   user;
   token: string | null;
-  loggedInState: "logged-in" | "pending" | "not-logged-in";
+  authState: "success" | "error" | "pending";
 };
 
 const initialState: InitialAuthState = {
   user: null,
   token: null,
-  loggedInState: "not-logged-in",
+  authState: "pending",
 };
 const authSlice = createSlice({
   name: "auth",
@@ -21,30 +21,28 @@ const authSlice = createSlice({
     builder.addCase(login.fulfilled, (state, action: PayloadAction<IUser>) => {
       state.token = action.payload.token;
       state.user = action.payload;
-      state.loggedInState = "logged-in";
+      state.authState = "success";
     });
 
     builder.addCase(login.pending, (state, action: PayloadAction) => {
-      state.loggedInState = "pending";
+      state.authState = "pending";
     });
     builder.addCase(login.rejected, (state, action) => {
-      state.loggedInState = "not-logged-in";
+      state.authState = "error";
     });
 
     builder.addCase(
       register.fulfilled,
       (state, action: PayloadAction<IUser>) => {
-        state.token = action.payload.token;
-        state.user = action.payload;
-        state.loggedInState = "logged-in";
+        state.authState = "success";
       }
     );
 
     builder.addCase(register.pending, (state, action: PayloadAction) => {
-      state.loggedInState = "pending";
+      state.authState = "pending";
     });
     builder.addCase(register.rejected, (state, action) => {
-      state.loggedInState = "not-logged-in";
+      state.authState = "error";
     });
   },
 });

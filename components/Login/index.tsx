@@ -18,7 +18,6 @@ const LoginPage = () => {
       username: usernameRef.current.value,
       password: passwordRef.current.value,
     };
-    console.log(loginData);
     dispatch(login(loginData))
       .then(unwrapResult)
       .then((user) => {

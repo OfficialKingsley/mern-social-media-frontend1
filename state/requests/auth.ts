@@ -50,7 +50,13 @@ export const register = createAsyncThunk(
     try {
       const res = await fetch(`${backendUrl}/api/v1/auth/register`, {
         method: "POST",
-        body: JSON.stringify({}),
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          username,
+          email,
+          password,
+        }),
         headers: {
           "Content-Type": "application/json",
         },

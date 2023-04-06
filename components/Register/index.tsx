@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useAppDispatch } from "../../hooks/redux-toolkit";
-import { login } from "../../state/requests/auth";
+import { login, register } from "../../state/requests/auth";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -24,15 +24,25 @@ const RegisterPage = () => {
       passwordRef.current.value !== confirmPasswordRef.current.value
     ) {
       alert("Both passwords are not the same");
-    } else {
-      const registerData = {
-        firstName: firstNameRef.current.value,
-        lastName: lastNameRef.current.value,
-        username: usernameRef.current.value,
-        email: emailRef.current.value,
-        password: confirmPasswordRef.current.value,
-      };
+      return;
     }
+    const registerData = {
+      firstName: firstNameRef.current.value,
+      lastName: lastNameRef.current.value,
+      username: usernameRef.current.value,
+      email: emailRef.current.value,
+      password: confirmPasswordRef.current.value,
+    };
+
+    dispatch(register(registerData))
+      .then(unwrapResult)
+      .then((result) => {
+        alert("Login successful");
+        router.push("/login");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <div className="flex h-screen">
