@@ -1,4 +1,4 @@
-type IUser = {
+export type IUser = {
   _id: string;
   firstName: string;
   lastName: string;
