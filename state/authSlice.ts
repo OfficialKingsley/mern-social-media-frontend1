@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { login } from "./requests/auth";
+import { login, register } from "./requests/auth";
 import { IUser } from "../types/IUser";
 
 type InitialAuthState = {
@@ -28,6 +28,22 @@ const authSlice = createSlice({
       state.loggedInState = "pending";
     });
     builder.addCase(login.rejected, (state, action) => {
+      state.loggedInState = "not-logged-in";
+    });
+
+    builder.addCase(
+      register.fulfilled,
+      (state, action: PayloadAction<IUser>) => {
+        state.token = action.payload.token;
+        state.user = action.payload;
+        state.loggedInState = "logged-in";
+      }
+    );
+
+    builder.addCase(register.pending, (state, action: PayloadAction) => {
+      state.loggedInState = "pending";
+    });
+    builder.addCase(register.rejected, (state, action) => {
       state.loggedInState = "not-logged-in";
     });
   },

@@ -9,26 +9,30 @@ import Image from "next/image";
 
 const RegisterPage = () => {
   const dispatch = useAppDispatch();
+  const firstNameRef = useRef(null);
+  const lastNameRef = useRef(null);
   const usernameRef = useRef(null);
+  const emailRef = useRef(null);
   const passwordRef = useRef(null);
+  const confirmPasswordRef = useRef(null);
   const router = useRouter();
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const loginData = {
-      username: usernameRef.current.value,
-      password: passwordRef.current.value,
-    };
-    console.log(loginData);
-    dispatch(login(loginData))
-      .then(unwrapResult)
-      .then((user) => {
-        router.push("/");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    // usernameRef.current.value = "";
-    // passwordRef.current.value = "";
+    if (
+      !passwordRef.current.value ||
+      !confirmPasswordRef.current.value ||
+      passwordRef.current.value !== confirmPasswordRef.current.value
+    ) {
+      alert("Both passwords are not the same");
+    } else {
+      const registerData = {
+        firstName: firstNameRef.current.value,
+        lastName: lastNameRef.current.value,
+        username: usernameRef.current.value,
+        email: emailRef.current.value,
+        password: confirmPasswordRef.current.value,
+      };
+    }
   };
   return (
     <div className="flex h-screen">
@@ -45,7 +49,7 @@ const RegisterPage = () => {
                 placeholder="First Name"
                 className="p-2 text-xl bg-transparent outline-none"
                 required
-                // ref={usernameRef}
+                ref={firstNameRef}
               />
             </div>
             <div className="my-2 bg-gray-300">
@@ -54,7 +58,7 @@ const RegisterPage = () => {
                 placeholder="Last Name"
                 className="p-2 text-xl bg-transparent outline-none"
                 required
-                ref={usernameRef}
+                ref={lastNameRef}
               />
             </div>
             <div className="my-2 bg-gray-300">
@@ -72,7 +76,7 @@ const RegisterPage = () => {
                 placeholder="Email"
                 className="p-2 text-xl bg-transparent outline-none"
                 required
-                ref={usernameRef}
+                ref={emailRef}
               />
             </div>
 
@@ -91,7 +95,7 @@ const RegisterPage = () => {
                 placeholder="Confirm Password"
                 className="p-2 text-xl bg-transparent outline-none"
                 required
-                ref={passwordRef}
+                ref={confirmPasswordRef}
               />
             </div>
             <div className="block w-full text-2xl text-white bg-green-500 rounded-sm cursor-pointer">
