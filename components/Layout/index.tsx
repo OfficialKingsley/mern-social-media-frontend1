@@ -16,10 +16,9 @@ const Layout = ({ children }) => {
   useEffect(() => {
     const verifyUserToken = async () => {
       const token = localStorage.getItem("token");
-      console.log(token);
 
       if (!token) {
-        console.log("no token");
+        router.push("/login");
       } else {
         dispatch(verifyToken(token))
           .then(unwrapResult)
