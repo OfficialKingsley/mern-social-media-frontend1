@@ -22,6 +22,7 @@ export const login = createAsyncThunk(
       if (!data._id) {
         return rejectWithValue(data);
       }
+      localStorage.setItem("token", data.token);
       return data;
     } catch (error) {
       return rejectWithValue(error);
@@ -62,6 +63,29 @@ export const register = createAsyncThunk(
         },
       });
       const data = await res.json();
+      if (!data._id) {
+        return rejectWithValue(data);
+      }
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const verifyToken = createAsyncThunk(
+  "auth/verify-token",
+  async (token: string, { rejectWithValue }) => {
+    try {
+      const res = await fetch(`${backendUrl}/api/v1/auth/verify-token`, {
+        method: "POST",
+        body: JSON.stringify({ token }),
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await res.json();
+      if (!data) {
+        return rejectWithValue("No data returned");
+      }
       if (!data._id) {
         return rejectWithValue(data);
       }

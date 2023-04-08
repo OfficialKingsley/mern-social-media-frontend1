@@ -1,9 +1,9 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { login, register } from "./requests/auth";
+import { login, register, verifyToken } from "./requests/auth";
 import { IUser } from "../types/IUser";
 
 type InitialAuthState = {
-  user;
+  user: IUser | null;
   token: string | null;
   authState: "success" | "error" | "pending";
 };
@@ -31,17 +31,31 @@ const authSlice = createSlice({
       state.authState = "error";
     });
 
+    builder.addCase(register.fulfilled, (state) => {
+      state.authState = "success";
+    });
+
+    builder.addCase(register.pending, (state) => {
+      state.authState = "pending";
+    });
+    builder.addCase(register.rejected, (state) => {
+      state.authState = "error";
+    });
+
     builder.addCase(
-      register.fulfilled,
+      verifyToken.fulfilled,
       (state, action: PayloadAction<IUser>) => {
         state.authState = "success";
+        state.user = action.payload;
+        state.token = action.payload.token;
       }
     );
 
-    builder.addCase(register.pending, (state, action: PayloadAction) => {
+    builder.addCase(verifyToken.pending, (state) => {
       state.authState = "pending";
     });
-    builder.addCase(register.rejected, (state, action) => {
+
+    builder.addCase(verifyToken.rejected, (state) => {
       state.authState = "error";
     });
   },

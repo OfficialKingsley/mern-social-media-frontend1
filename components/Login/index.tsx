@@ -26,8 +26,8 @@ const LoginPage = () => {
       .catch((err) => {
         console.log(err);
       });
-    // usernameRef.current.value = "";
-    // passwordRef.current.value = "";
+    usernameRef.current.value = "";
+    passwordRef.current.value = "";
   };
   return (
     <div className="flex h-screen">
