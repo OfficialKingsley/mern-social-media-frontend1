@@ -14,9 +14,26 @@ const Layout = ({ children }) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!user) {
-      router.push("/login");
-    }
+    const verifyUserToken = async () => {
+      const token = localStorage.getItem("token");
+      console.log(token);
+
+      if (!token) {
+        console.log("no token");
+      } else {
+        dispatch(verifyToken(token))
+          .then(unwrapResult)
+          .then((result) => {
+            if (!result._id) {
+              router.push("/login");
+            }
+          })
+          .catch((error) => {
+            router.push("/login");
+          });
+      }
+    };
+    verifyUserToken();
   }, []);
   return (
     user && (
@@ -28,15 +45,6 @@ const Layout = ({ children }) => {
   );
 };
 
-export const getServerSideProps = () => {
-  const token = localStorage.getItem("token");
-  console.log(token);
-
-  if (!token) {
-    console.log("no token");
-  } else {
-    store.dispatch(verifyToken(token));
-  }
-};
+export const getServerSideProps = () => {};
 
 export default Layout;

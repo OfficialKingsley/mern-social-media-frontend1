@@ -14,8 +14,8 @@ import NavIcon from "./NavIcon";
 import Link from "next/link";
 import { useAppSelector } from "../../hooks/redux-toolkit";
 const Navbar = () => {
-  const userState = useAppSelector((state) => state.authState);
-  const user = userState.user;
+  const authState = useAppSelector((state) => state.auth);
+  const user = authState.user;
   return (
     <nav className="sticky top-0 z-50 flex items-center justify-between bg-white shadow-md sm:p-2 hover:shadow-lg lg:px-5">
       {/* lEFT nav */}
