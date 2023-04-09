@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { getPosts } from "./requests/posts";
+import { addPost, getPosts } from "./requests/posts";
 import { IPost } from "../types/IPost";
 type PostsState = {
   posts: IPost[];
@@ -23,6 +23,19 @@ const postSlice = createSlice({
       state.postsState = "pending";
     });
     builder.addCase(getPosts.rejected, (state) => {
+      state.postsState = "error";
+    });
+    builder.addCase(
+      addPost.fulfilled,
+      (state, action: PayloadAction<IPost>) => {
+        state.postsState = "success";
+        state.posts = [...state.posts, action.payload];
+      }
+    );
+    builder.addCase(addPost.pending, (state, action) => {
+      state.postsState = "pending";
+    });
+    builder.addCase(addPost.rejected, (state, action) => {
       state.postsState = "error";
     });
   },
