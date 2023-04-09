@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* @layer components {
+  .icon {
+    @apply hidden w-10 h-10 p-2 xl:inline-flex;
+  }
+} */
