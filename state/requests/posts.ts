@@ -34,3 +34,25 @@ export const addPost = createAsyncThunk(
     }
   }
 );
+
+export const likePost = createAsyncThunk(
+  "posts/likePost",
+  async (
+    { postId, userId }: { postId: string; userId: string },
+    { rejectWithValue }
+  ) => {
+    try {
+      const res = await fetch(`${backendUrl}/api/v1/posts/${postId}/like`, {
+        method: "POST",
+        body: JSON.stringify({ likedBy: userId }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);

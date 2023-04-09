@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IPost } from "../../types/IPost";
 import Image from "next/image";
 import Link from "next/link";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux-toolkit";
+import { likePost } from "../../state/requests/posts";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 const Post = ({ post }: { post: IPost }) => {
   const { user: author } = post;
+  const user = useAppSelector((state) => state.auth).user;
+  const dispatch = useAppDispatch();
+  const [likeCount, setLikeCount] = useState(0);
+  useEffect(() => {
+    setLikeCount(post.likes.length);
+  }, [post.likes]);
   return (
     <div className="bg-white rounded-2xl my-2 p-2">
       {/* Top */}
@@ -24,14 +33,39 @@ const Post = ({ post }: { post: IPost }) => {
           <img src={post.imageUrl} alt={""} className="w-full h-full" />
         </div>
       )}
+      <div>
+        <small>{likeCount} likes</small>
+      </div>
       <div className="flex gap-1 my-2">
-        <button className="bg-blue-500 opacity-80 px-2 py-1 rounded-md flex-1 text-white">
+        <button
+          className="bg-blue-500 opacity-80 px-2 py-1 rounded-md flex-1 text-white"
+          onClick={() => {
+            dispatch(likePost({ userId: user?._id, postId: post._id }))
+              .then(unwrapResult)
+              .then((result) => {
+                setLikeCount(result);
+              })
+              .catch(() => {
+                console.log("Wow");
+              });
+          }}
+        >
           Like
         </button>
-        <button className="bg-yellow-500 opacity-80 px-2 py-1 rounded-md flex-1 text-white">
+        <button
+          className="bg-yellow-500 opacity-80 px-2 py-1 rounded-md flex-1 text-white"
+          onClick={() => {
+            alert("Comment functionality not working yet");
+          }}
+        >
           Comment
         </button>
-        <button className="bg-green-500 opacity-80 px-2 py-1 rounded-md flex-1 text-white">
+        <button
+          className="bg-green-500 opacity-80 px-2 py-1 rounded-md flex-1 text-white"
+          onClick={() => {
+            alert("Share functionality not working yet");
+          }}
+        >
           Share
         </button>
       </div>
