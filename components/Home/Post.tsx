@@ -44,9 +44,6 @@ const Post = ({ post }: { post: IPost }) => {
               .then(unwrapResult)
               .then((result) => {
                 setLikeCount(result);
-              })
-              .catch(() => {
-                console.log("Wow");
               });
           }}
         >

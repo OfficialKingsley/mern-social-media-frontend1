@@ -6,7 +6,6 @@ import { getPosts } from "../../state/requests/posts";
 const Posts = () => {
   const dispatch = useAppDispatch();
   const posts = useAppSelector((state) => state.posts).posts;
-  console.log(posts);
 
   useEffect(() => {
     dispatch(getPosts());

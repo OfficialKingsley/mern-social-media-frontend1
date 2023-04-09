@@ -35,12 +35,22 @@ const Layout = ({ children }) => {
     verifyUserToken();
   }, []);
   return (
-    user && (
-      <div>
-        <Navbar />
-        {children}
-      </div>
-    )
+    <>
+      {authState.authState === "pending" ? (
+        <div className="w-screen h-screen flex items-center justify-center text-9xl">
+          Loading...
+        </div>
+      ) : (
+        <>
+          {user && (
+            <div>
+              <Navbar />
+              {children}
+            </div>
+          )}
+        </>
+      )}
+    </>
   );
 };
 
