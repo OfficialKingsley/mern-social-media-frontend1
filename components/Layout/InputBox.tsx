@@ -5,11 +5,9 @@ import {
 } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import React, { useRef, useState } from "react";
-import NextImage from "./../../public/next.svg";
-import InputIcon from "./InputIcon";
+import InputIcon from "../Home/InputIcon";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-toolkit";
 import { addPost } from "../../state/requests/posts";
-import { unwrapResult } from "@reduxjs/toolkit";
 import Link from "next/link";
 
 const InputBox = () => {
@@ -56,7 +54,7 @@ const InputBox = () => {
   };
 
   return (
-    <form className="p-2 mt-6 font-medium text-gray-500 bg-white shadow-md rounded-2xl">
+    <form className="p-2 font-medium text-gray-500 bg-white shadow-md rounded-2xl">
       <div className="flex items-center gap-4 p-4">
         <Link href={`profile/${user?._id}`}>
           <Image

@@ -1,12 +1,12 @@
 import React from "react";
-import InputBox from "./InputBox";
+import InputBox from "../Layout/InputBox";
 import Stories from "./Stories";
-import Posts from "./Posts";
+import Posts from "../Layout/Posts";
 
 const Feed = () => {
   return (
-    <div className="overflow-y-auto grow pb-32">
-      <div className="max-w-md mx-auto md:max-w-lg lg:max-w-2xl">
+    <div className="pb-32 overflow-y-auto grow">
+      <div className="max-w-md mx-auto md:max-w-lg lg:max-w-xl">
         {/* Stories */}
         <Stories />
         <InputBox />

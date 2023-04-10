@@ -7,8 +7,8 @@ import React from "react";
 
 const Widgets = () => {
   return (
-    <div className="hidden lg:flex flex-col w-60 ">
-      <div className="flex justify-between items-center text-gray-500 mb-5">
+    <div className="flex-col hidden lg:flex w-80 ">
+      <div className="flex items-center justify-between mb-5 text-gray-500">
         <h1>Contacts</h1>
         <div>
           <MagnifyingGlassIcon />

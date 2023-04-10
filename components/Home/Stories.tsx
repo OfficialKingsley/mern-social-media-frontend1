@@ -3,7 +3,13 @@ import Story from "./Story";
 import FbLogo from "./../../public/fb-logo.webp";
 import NextLogo from "./../../public/next.svg";
 
-const stories = [{ name: "Kingsley", src: FbLogo, profile: NextLogo }];
+const stories = [
+  { name: "Kingsley", src: FbLogo, profile: NextLogo },
+  { name: "Kingsley", src: FbLogo, profile: NextLogo },
+  ,
+  { name: "Kingsley", src: FbLogo, profile: NextLogo },
+  { name: "Kingsley", src: FbLogo, profile: NextLogo },
+];
 
 const Stories = () => {
   return (
