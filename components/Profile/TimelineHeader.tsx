@@ -1,6 +1,7 @@
 import React from "react";
 import TimelineImage from "./../../public/timeline1.jpg";
 import Image from "next/image";
+import { IUser } from "../../types/IUser";
 
 export const TimelineNavItem = ({
   text,
@@ -19,7 +20,7 @@ export const TimelineNavItem = ({
     </div>
   );
 };
-const TimelineHeader = () => {
+const TimelineHeader = ({ foundUser }: { foundUser: IUser }) => {
   return (
     <div className="px-44">
       <div className="relative rounded-md h-96">
@@ -30,14 +31,16 @@ const TimelineHeader = () => {
         />
         <div className="absolute w-48 h-48 -translate-x-1/2 border-2 border-white rounded-full left-1/2 -bottom-10">
           <Image
-            src={TimelineImage}
+            src={foundUser.profileImageUrl}
+            width={40}
+            height={40}
             alt=""
             className="object-cover w-full h-full rounded-full"
           />
         </div>
       </div>
       <div className="mt-12 text-3xl font-bold text-center ">
-        <p>Ronald Oliver</p>
+        <p>{foundUser.fullName}</p>
       </div>
       <div className="mt-6 border border-black border-opacity-10"></div>
       <div className="flex justify-between">

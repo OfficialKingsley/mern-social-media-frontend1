@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import InputBox from "../Layout/InputBox";
 import Posts from "../Layout/Posts";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux-toolkit";
+import { getSpecificUserPosts } from "../../state/requests/posts";
 
-const ProfileBody = () => {
+const ProfileBody = ({ foundUser }) => {
+  const dispatch = useAppDispatch();
+  const specifiUserPosts = useAppSelector(
+    (state) => state.users.specificUserPosts
+  );
+  useEffect(() => {
+    dispatch(getSpecificUserPosts(foundUser?._id));
+  }, []);
   return (
     <div className="flex gap-2 px-48 py-4 overflow-y-auto bg-gray-200">
       <div>
