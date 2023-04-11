@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { backendUrl } from "../../variables/environment-variables";
+import store from "..";
 
 export const getPosts = createAsyncThunk(
   "posts/get",
@@ -10,7 +11,7 @@ export const getPosts = createAsyncThunk(
       if (!data) {
         return rejectWithValue("No data returned");
       }
-      return data;
+      return data.reverse();
     } catch (error) {
       return rejectWithValue(error);
     }
@@ -27,7 +28,8 @@ export const addPost = createAsyncThunk(
       });
       const data = await res.json();
       if (!data) return rejectWithValue("No data returned");
-      if (!data.length) return rejectWithValue(data);
+      if (!data._id) return rejectWithValue(data);
+      store.dispatch(getPosts());
       return data;
     } catch (error) {
       return rejectWithValue(error);

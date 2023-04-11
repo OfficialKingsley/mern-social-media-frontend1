@@ -31,7 +31,7 @@ const ProfileBody = ({ foundUser }) => {
           <h1 className="text-2xl font-bold">Posts</h1>
           <p>Filter</p>
         </div>
-        <Posts />
+        <Posts posts={specifiUserPosts} />
       </div>
     </div>
   );

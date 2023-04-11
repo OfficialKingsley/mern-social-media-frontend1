@@ -5,15 +5,15 @@ import NextLogo from "./../../public/next.svg";
 
 const stories = [
   { name: "Kingsley", src: FbLogo, profile: NextLogo },
-  { name: "Kingsley", src: FbLogo, profile: NextLogo },
+  { name: "Kingsley1", src: FbLogo, profile: NextLogo },
   ,
-  { name: "Kingsley", src: FbLogo, profile: NextLogo },
-  { name: "Kingsley", src: FbLogo, profile: NextLogo },
+  { name: "Kingsley2", src: FbLogo, profile: NextLogo },
+  { name: "Kingsley3", src: FbLogo, profile: NextLogo },
 ];
 
 const Stories = () => {
   return (
-    <div className="flex justify-center mx-auto space-x-3 bg-white rounded-3xl">
+    <div className="flex justify-center mx-auto mb-4 space-x-3 bg-white rounded-3xl">
       {stories.map((story) => (
         <Story
           name={story.name}

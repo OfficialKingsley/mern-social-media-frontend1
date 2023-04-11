@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { addPost, getPosts, likePost } from "./requests/posts";
 import { IPost } from "../types/IPost";
+import store from ".";
 type PostsState = {
   posts: IPost[];
   postsState: "success" | "pending" | "error";
@@ -29,7 +30,7 @@ const postSlice = createSlice({
       addPost.fulfilled,
       (state, action: PayloadAction<IPost>) => {
         state.postsState = "success";
-        state.posts = [...state.posts, action.payload];
+        console.log(state.posts);
       }
     );
     builder.addCase(addPost.pending, (state, action) => {

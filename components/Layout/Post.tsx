@@ -11,13 +11,14 @@ const Post = ({ post }: { post: IPost }) => {
   const user = useAppSelector((state) => state.auth).user;
   const dispatch = useAppDispatch();
   const [likeCount, setLikeCount] = useState(0);
+  console.log(post.imageUrl);
   useEffect(() => {
     setLikeCount(post.likes.length);
   }, [post.likes]);
   return (
-    <div className="bg-white rounded-2xl my-2 p-2">
+    <div className="p-2 my-2 bg-white rounded-2xl">
       {/* Top */}
-      <div className="flex gap-2 pb-2 border-b mb-2">
+      <div className="flex gap-2 pb-2 mb-2 border-b">
         <Link href={`/profile/${author?._id}`}>
           <Image src={author.profileImageUrl} alt="" width={40} height={40} />
         </Link>
@@ -38,7 +39,7 @@ const Post = ({ post }: { post: IPost }) => {
       </div>
       <div className="flex gap-1 my-2">
         <button
-          className="bg-blue-500 opacity-80 px-2 py-1 rounded-md flex-1 text-white"
+          className="flex-1 px-2 py-1 text-white bg-blue-500 rounded-md opacity-80"
           onClick={() => {
             dispatch(likePost({ userId: user?._id, postId: post._id }))
               .then(unwrapResult)
@@ -50,7 +51,7 @@ const Post = ({ post }: { post: IPost }) => {
           Like
         </button>
         <button
-          className="bg-yellow-500 opacity-80 px-2 py-1 rounded-md flex-1 text-white"
+          className="flex-1 px-2 py-1 text-white bg-yellow-500 rounded-md opacity-80"
           onClick={() => {
             alert("Comment functionality not working yet");
           }}
@@ -58,7 +59,7 @@ const Post = ({ post }: { post: IPost }) => {
           Comment
         </button>
         <button
-          className="bg-green-500 opacity-80 px-2 py-1 rounded-md flex-1 text-white"
+          className="flex-1 px-2 py-1 text-white bg-green-500 rounded-md opacity-80"
           onClick={() => {
             alert("Share functionality not working yet");
           }}

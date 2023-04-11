@@ -7,8 +7,9 @@ import Image from "next/image";
 import React, { useRef, useState } from "react";
 import InputIcon from "../Home/InputIcon";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-toolkit";
-import { addPost } from "../../state/requests/posts";
+import { addPost, getPosts } from "../../state/requests/posts";
 import Link from "next/link";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 const InputBox = () => {
   const user = useAppSelector((state) => state.auth).user;
@@ -37,19 +38,18 @@ const InputBox = () => {
     };
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     const text = inputRef.current.value;
-
     const postImage = actualImage;
-    console.log(postImage);
     formData.append("text", text);
     formData.append("postImage", postImage);
     formData.append("user", user._id);
     dispatch(addPost(formData));
     setActualImage(null);
     setImageToPost(null);
+    setShowSubmit(false);
     inputRef.current.value = "";
   };
 
@@ -91,7 +91,7 @@ const InputBox = () => {
       )}
       {showSubmit && (
         <>
-          <div className="text-white bg-blue-500 rounded-xl">
+          <div className="my-2 text-white bg-blue-500 rounded-xl">
             <button
               type="submit"
               onClick={handleSubmit}

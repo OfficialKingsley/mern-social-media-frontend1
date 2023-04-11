@@ -1,15 +1,7 @@
 import React, { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux-toolkit";
 import Post from "./Post";
-import { getPosts } from "../../state/requests/posts";
 
-const Posts = () => {
-  const dispatch = useAppDispatch();
-  const posts = useAppSelector((state) => state.posts).posts;
-
-  useEffect(() => {
-    dispatch(getPosts());
-  }, []);
+const Posts = ({ posts }) => {
   return (
     <>
       {posts?.map((post) => (
