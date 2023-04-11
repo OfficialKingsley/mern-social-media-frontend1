@@ -59,9 +59,9 @@ export const likePost = createAsyncThunk(
 
 export const getSpecificUserPosts = createAsyncThunk(
   "posts/getSpecificUserPosts",
-  async ({ userId }: { userId: string }, { rejectWithValue }) => {
+  async (userId: string, { rejectWithValue }) => {
     try {
-      const res = await fetch(`${backendUrl}/api/v1/posts?userId=${userId}`);
+      const res = await fetch(`${backendUrl}/api/v1/posts/?userId=${userId}`);
       const data = await res.json();
       return data;
     } catch (error) {
