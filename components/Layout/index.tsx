@@ -5,6 +5,7 @@ import { Router, useRouter } from "next/router";
 import store from "../../state";
 import { verifyToken } from "../../state/requests/auth";
 import { unwrapResult } from "@reduxjs/toolkit";
+import { refetchUser } from "../../state/requests/users";
 
 const Layout = ({ children }) => {
   const authState = useAppSelector((state) => state.auth);
@@ -33,11 +34,12 @@ const Layout = ({ children }) => {
       }
     };
     verifyUserToken();
+    dispatch(refetchUser());
   }, []);
   return (
     <>
       {authState.authState === "pending" ? (
-        <div className="w-screen h-screen flex items-center justify-center text-9xl">
+        <div className="flex items-center justify-center w-screen h-screen text-9xl">
           Loading...
         </div>
       ) : (

@@ -5,7 +5,7 @@ import { IUser } from "../../types/IUser";
 import { CameraIcon } from "@heroicons/react/24/solid";
 import { backendUrl } from "../../variables/environment-variables";
 import { useAppDispatch } from "../../hooks/redux-toolkit";
-import { getProfileUser } from "../../state/requests/users";
+import { getProfileUser, refetchUser } from "../../state/requests/users";
 
 export const TimelineNavItem = ({
   text,
@@ -26,6 +26,7 @@ export const TimelineNavItem = ({
 };
 const TimelineHeader = ({ foundUser }: { foundUser: IUser }) => {
   const [profileImageData, setProfileImageData] = useState(null);
+  const profileImageRef = useRef(null);
   const [actualProfileImage, setActualProfileImage] = useState(null);
   const [showAddProfileImage, setShowAddProfileImage] = useState(false);
   const dispatch = useAppDispatch();
@@ -55,27 +56,44 @@ const TimelineHeader = ({ foundUser }: { foundUser: IUser }) => {
     const formData = new FormData();
 
     formData.append("profileImage", actualProfileImage);
-    const res = await fetch(
-      `${backendUrl}/api/v1/users/${foundUser?._id}/profile-image`,
-      { method: "PUT", body: formData }
-    );
-    const data = res.json();
-    setShowAddProfileImage(false);
-    dispatch(getProfileUser(foundUser._id));
+
+    try {
+      const res = await fetch(
+        `${backendUrl}/api/v1/users/${foundUser?._id}/profile-image`,
+        { method: "PUT", body: formData }
+      );
+      const data = await res.json();
+      setShowAddProfileImage(false);
+      setActualProfileImage(null);
+      setProfileImageData(null);
+      profileImageRef.current.value = "";
+      dispatch(getProfileUser(foundUser._id));
+      dispatch(refetchUser());
+    } catch (error) {
+      setShowAddProfileImage(false);
+    }
   };
   return (
     <div className="px-44">
       {showAddProfileImage && (
-        <div className="fixed top-0 left-0 z-50 w-screen h-screen bg-gray-500">
+        <div className="fixed z-50 p-4 -translate-x-1/2 -translate-y-1/2 bg-gray-500 top-1/2 left-1/2">
+          <button
+            className="block bg-red-500 "
+            onClick={() => {
+              setShowAddProfileImage(false);
+            }}
+          >
+            Close
+          </button>
           <img
             src={profileImageData}
             alt="Update profile Image"
-            className="w-80 h-80"
+            className="mx-auto my-2 w-80 h-80"
           />
           <button
             type="submit"
             onClick={submitProfileImage}
-            className="p-2 text-white bg-blue-500 rounded-lg"
+            className="p-2 text-white bg-blue-500 rounded-lg cursor-pointer"
           >
             Add Profile Image
           </button>
@@ -88,7 +106,7 @@ const TimelineHeader = ({ foundUser }: { foundUser: IUser }) => {
           className="object-cover w-full h-full rounded-md"
         />
         <div className="absolute w-48 h-48 -translate-x-1/2 border-2 border-white rounded-full left-1/2 -bottom-10">
-          <div className="relative">
+          <div className="relative w-48 h-48">
             <Image
               src={foundUser.profileImageUrl}
               width={40}
@@ -96,7 +114,7 @@ const TimelineHeader = ({ foundUser }: { foundUser: IUser }) => {
               alt=""
               className="object-cover w-full h-full rounded-full"
             />
-            <span className="absolute w-12 bottom-4 right-2">
+            <span className="absolute w-12 bottom-2 -right-2">
               <label htmlFor="profileImage" className="cursor-pointer">
                 <CameraIcon />
               </label>
@@ -105,6 +123,8 @@ const TimelineHeader = ({ foundUser }: { foundUser: IUser }) => {
                 id="profileImage"
                 accept=".jpeg, .jpg, .webp, .gif, .png"
                 onChange={addProfileImage}
+                ref={profileImageRef}
+                hidden
               />
             </span>
           </div>

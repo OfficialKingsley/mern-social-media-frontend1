@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { login, register, verifyToken } from "./requests/auth";
 import { IUser } from "../types/IUser";
+import { refetchUser } from "./requests/users";
 
 type InitialAuthState = {
   user: IUser | null;
@@ -57,6 +58,10 @@ const authSlice = createSlice({
 
     builder.addCase(verifyToken.rejected, (state) => {
       state.authState = "error";
+    });
+    builder.addCase(refetchUser.fulfilled, (state, action) => {
+      state.user = action.payload;
+      state.authState = "success";
     });
   },
 });

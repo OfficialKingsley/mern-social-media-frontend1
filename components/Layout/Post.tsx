@@ -20,7 +20,13 @@ const Post = ({ post }: { post: IPost }) => {
       {/* Top */}
       <div className="flex gap-2 pb-2 mb-2 border-b">
         <Link href={`/profile/${author?._id}`}>
-          <Image src={author.profileImageUrl} alt="" width={40} height={40} />
+          <Image
+            src={author.profileImageUrl}
+            alt=""
+            width={40}
+            height={40}
+            className="w-10 h-10 rounded-full"
+          />
         </Link>
         <div className="flex flex-col">
           <cite>{author?.fullName}</cite>

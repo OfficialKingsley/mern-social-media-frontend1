@@ -62,7 +62,7 @@ const InputBox = () => {
             alt={""}
             width={40}
             height={40}
-            className="rounded-full"
+            className="w-10 h-10 rounded-full"
           />
         </Link>
         <div className="flex flex-1">
