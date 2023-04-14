@@ -15,6 +15,8 @@ const Widgets = () => {
           <EllipsisHorizontalIcon />
           <VideoCameraIcon />
         </div>
+        <div>Online</div>
+        <div>Suggestions</div>
       </div>
     </div>
   );
