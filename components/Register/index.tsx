@@ -146,7 +146,7 @@ const RegisterPage = () => {
                 )}
               </span>
             </div>
-            <div className="block w-full text-2xl text-white bg-blue-500 rounded-sm cursor-pointer">
+            <div className="block w-fit px-4 text-2xl text-white bg-blue-500 rounded-full cursor-pointer">
               <button
                 type="submit"
                 className="w-full h-full p-2 bg-transparent"
