@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useAppDispatch } from "../../hooks/redux-toolkit";
 import { login, register } from "../../state/requests/auth";
 import { unwrapResult } from "@reduxjs/toolkit";
@@ -6,8 +6,11 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import LoginImage1 from "./../../public/login-image1.jpg";
 import Image from "next/image";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 
 const RegisterPage = () => {
+  const [showPassword1, setShowPassword1] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
   const dispatch = useAppDispatch();
   const firstNameRef = useRef(null);
   const lastNameRef = useRef(null);
@@ -18,11 +21,15 @@ const RegisterPage = () => {
   const router = useRouter();
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (
-      !passwordRef.current.value ||
-      !confirmPasswordRef.current.value ||
-      passwordRef.current.value !== confirmPasswordRef.current.value
-    ) {
+    if (!passwordRef.current.value) {
+      alert("No password was passed in");
+      return;
+    }
+    if (!confirmPasswordRef.current.value) {
+      alert("A confirmation password was not passed");
+      return;
+    }
+    if (passwordRef.current.value !== confirmPasswordRef.current.value) {
       alert("Both passwords are not the same");
       return;
     }
@@ -97,23 +104,47 @@ const RegisterPage = () => {
               />
             </div>
 
-            <div className="my-2 bg-gray-300">
+            <div className="my-2 bg-gray-300 flex items-center px-2">
               <input
-                type="password"
+                type={showPassword1 ? "text" : "password"}
                 placeholder="Password"
-                className="p-2 text-xl bg-transparent outline-none"
+                className="p-2 text-xl bg-transparent outline-none flex-1"
                 required
                 ref={passwordRef}
               />
+              <span
+                onClick={() => {
+                  setShowPassword1(!showPassword1);
+                }}
+                className="cursor-pointer"
+              >
+                {showPassword1 ? (
+                  <EyeSlashIcon width={20} />
+                ) : (
+                  <EyeIcon width={20} />
+                )}
+              </span>
             </div>
-            <div className="my-2 bg-gray-300">
+            <div className="my-2 bg-gray-300 flex items-center px-2">
               <input
-                type="password"
-                placeholder="Confirm Password"
-                className="p-2 text-xl bg-transparent outline-none"
+                type={showPassword2 ? "text" : "password"}
+                placeholder="Password"
+                className="p-2 text-xl bg-transparent outline-none flex-1"
                 required
                 ref={confirmPasswordRef}
               />
+              <span
+                onClick={() => {
+                  setShowPassword2(!showPassword2);
+                }}
+                className="cursor-pointer"
+              >
+                {showPassword2 ? (
+                  <EyeSlashIcon width={20} />
+                ) : (
+                  <EyeIcon width={20} />
+                )}
+              </span>
             </div>
             <div className="block w-full text-2xl text-white bg-blue-500 rounded-sm cursor-pointer">
               <button

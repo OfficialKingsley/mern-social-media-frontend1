@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useAppDispatch } from "../../hooks/redux-toolkit";
 import { login } from "../../state/requests/auth";
 import { unwrapResult } from "@reduxjs/toolkit";
@@ -6,8 +6,10 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import LoginImage1 from "./../../public/login-image1.jpg";
 import Image from "next/image";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 
 const LoginPage = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const dispatch = useAppDispatch();
   const usernameRef = useRef(null);
   const passwordRef = useRef(null);
@@ -52,21 +54,33 @@ const LoginPage = () => {
               <input
                 type="text"
                 placeholder="Username"
-                className="p-2 text-xl bg-transparent outline-none"
+                className="p-2 text-xl bg-transparent outline-none w-full"
                 required
                 ref={usernameRef}
               />
             </div>
-            <div className="my-2 bg-gray-300">
+            <div className="my-2 bg-gray-300  flex items-center px-2">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="Password"
-                className="p-2 text-xl bg-transparent outline-none"
+                className="p-2 text-xl bg-transparent outline-none flex-1"
                 required
                 ref={passwordRef}
               />
+              <span
+                onClick={() => {
+                  setShowPassword(!showPassword);
+                }}
+                className="cursor-pointer"
+              >
+                {showPassword ? (
+                  <EyeSlashIcon width={20} />
+                ) : (
+                  <EyeIcon width={20} />
+                )}
+              </span>
             </div>
-            <div className="block w-full text-2xl text-white bg-blue-500 rounded-sm cursor-pointer">
+            <div className="block w-fit px-4 text-2xl text-white bg-blue-500 rounded-full cursor-pointer">
               <button
                 type="submit"
                 className="w-full h-full p-2 bg-transparent"
