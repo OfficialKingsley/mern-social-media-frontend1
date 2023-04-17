@@ -37,21 +37,28 @@ const RegisterPage = () => {
     dispatch(register(registerData))
       .then(unwrapResult)
       .then((result) => {
-        alert("Login successful");
+        alert("Registration successful");
         router.push("/login");
       })
       .catch((err) => {
+        alert(err.message);
         console.log(err);
       });
   };
   return (
     <div className="flex h-screen">
-      <div className="flex-1 hidden lg:block">
-        <Image src={LoginImage1} alt="login" className="h-full" />
+      <div className="flex-1 hidden lg:flex bg-blue-500 items-center justify-center lg:flex-col max-w-lg gap-4">
+        <h2 className="text-4xl text-white font-bold">Welcome Back</h2>
+        <Link
+          href={"/login"}
+          className="bg-white text-black px-4 py-2 block w-fit rounded-full font-bold"
+        >
+          Login
+        </Link>
       </div>
       <div className="flex items-center justify-center flex-1">
-        <div className="flex flex-col items-center w-full h-full gap-3 px-16 py-4 justify-evenly">
-          <h1 className="w-full text-4xl">Register</h1>
+        <div className="flex flex-col items-center w-full h-full gap-3 px-16 py-4 justify-center">
+          <h1 className="w-full text-4xl text-center font-bold">Register</h1>
           <form action="" className="flex flex-col w-full max-w-lg">
             <div className="my-2 bg-gray-300">
               <input
@@ -108,7 +115,7 @@ const RegisterPage = () => {
                 ref={confirmPasswordRef}
               />
             </div>
-            <div className="block w-full text-2xl text-white bg-green-500 rounded-sm cursor-pointer">
+            <div className="block w-full text-2xl text-white bg-blue-500 rounded-sm cursor-pointer">
               <button
                 type="submit"
                 className="w-full h-full p-2 bg-transparent"

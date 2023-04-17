@@ -21,23 +21,33 @@ const LoginPage = () => {
     dispatch(login(loginData))
       .then(unwrapResult)
       .then((user) => {
+        alert("Login Successful");
         router.push("/");
       })
       .catch((err) => {
         console.log(err);
+        alert(err.message);
       });
     usernameRef.current.value = "";
     passwordRef.current.value = "";
   };
   return (
     <div className="flex h-screen">
-      <div className="flex-1 hidden lg:block">
-        <Image src={LoginImage1} alt="login" className="h-full" />
+      <div className="flex-1 hidden lg:flex bg-blue-500 items-center justify-center lg:flex-col max-w-lg gap-4">
+        <h2 className="text-4xl text-white font-bold">
+          Don't Have an Account?
+        </h2>
+        <Link
+          href={"/register"}
+          className="bg-white text-black px-4 py-2 block w-fit rounded-full font-bold"
+        >
+          Register
+        </Link>
       </div>
       <div className="flex items-center justify-center flex-1">
-        <div className="flex flex-col items-center w-full h-full gap-3 px-16 py-4 justify-evenly">
-          <h1 className="w-full text-4xl">Login</h1>
-          <form action="" className="self-center w-full max-w-lg">
+        <div className="flex flex-col items-center w-full h-full gap-3 px-16 py-4 justify-center">
+          <h1 className="w-full text-4xl text-center font-bold">Login</h1>
+          <form action="" className="self-center w-full max-w-lg mx-auto">
             <div className="my-2 bg-gray-300">
               <input
                 type="text"
@@ -56,7 +66,7 @@ const LoginPage = () => {
                 ref={passwordRef}
               />
             </div>
-            <div className="block w-full text-2xl text-white bg-green-500 rounded-sm cursor-pointer">
+            <div className="block w-full text-2xl text-white bg-blue-500 rounded-sm cursor-pointer">
               <button
                 type="submit"
                 className="w-full h-full p-2 bg-transparent"
@@ -70,7 +80,7 @@ const LoginPage = () => {
                 Forgot Password?
               </Link>
             </p>
-            <p className="w-full ">
+            <p className="w-full block lg:hidden">
               Don't have an account?{" "}
               <Link href="/register" className="text-blue-500">
                 Register
