@@ -11,12 +11,18 @@ import {
   ShoppingCartIcon,
   ChatBubbleBottomCenterIcon,
   BellIcon,
+  UsersIcon,
 } from "@heroicons/react/24/solid";
 import NavIcon, { RightNavIcon } from "./NavIcon";
 import Link from "next/link";
 import { useAppSelector } from "../../hooks/redux-toolkit";
 import FacebookLogo from "../../icons/FacebookLogo";
-const Navbar = () => {
+
+type NavbarProps = {
+  activePage;
+};
+
+const Navbar = ({ activePage }: NavbarProps) => {
   const authState = useAppSelector((state) => state.auth);
   const user = authState.user;
   return (
@@ -83,10 +89,18 @@ const Navbar = () => {
         <div className="flex w-full max-w-[600px] px-4 justify-evenly">
           <div className="flex justify-between w-full gap-6">
             <Link href={"/"}>
-              <NavIcon Icon={HomeIcon} isActive side={"center"} />
+              <NavIcon
+                Icon={HomeIcon}
+                isActive={activePage === "index"}
+                side={"center"}
+              />
             </Link>
-            <Link href="">
-              <NavIcon Icon={FlagIcon} side={"center"} />
+            <Link href="/friends">
+              <NavIcon
+                Icon={UsersIcon}
+                isActive={activePage === "friends"}
+                side={"center"}
+              />
             </Link>
             <Link href={""}>
               <NavIcon Icon={PlayIcon} side={"center"} />
@@ -97,11 +111,13 @@ const Navbar = () => {
           </div>
         </div>
         {/* Right Nav */}
-        <div className="hidden lg:items-center lg:flex lg:justify-between lg:gap-2">
+        <div className="hidden md:items-center md:flex md:justify-between md:gap-2">
           <div className="flex">
             <Link
               href={`/profile/${user?._id}`}
-              className={"flex items-center"}
+              className={
+                "flex items-center w-[40px] h-[40px] lg:w-fit lg:h-fit"
+              }
               title={user?.username}
             >
               <Image
@@ -109,7 +125,7 @@ const Navbar = () => {
                 alt={user?.fullName}
                 width={40}
                 height={40}
-                className="w-10 h-10 rounded-full p-0.5"
+                className="w-[40px] h-[40px] rounded-full p-0.5 block"
               />
               <p className="items-center hidden text-sm lg:block w-fit">
                 {user?.fullName}
@@ -119,9 +135,15 @@ const Navbar = () => {
           <Link className="" href={""}>
             <RightNavIcon Icon={FaPlus} />
           </Link>
-          <RightNavIcon Icon={FaFacebookMessenger} />
-          <RightNavIcon Icon={FaBell} />
-          <RightNavIcon Icon={BsTriangleFill} />
+          <Link href={""}>
+            <RightNavIcon Icon={FaFacebookMessenger} />
+          </Link>
+          <Link href={"/notifications"}>
+            <RightNavIcon Icon={FaBell} />
+          </Link>
+          <Link href={"/more"} className="rotate-180">
+            <RightNavIcon Icon={BsTriangleFill} />
+          </Link>
         </div>
       </div>
     </nav>

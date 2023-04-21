@@ -107,10 +107,8 @@ const TimelineHeader = ({ foundUser }: { foundUser: IUser }) => {
         />
         <div className="absolute w-48 h-48 -translate-x-1/2 border-2 border-white rounded-full left-1/2 -bottom-10">
           <div className="relative w-48 h-48">
-            <Image
+            <img
               src={foundUser.profileImageUrl}
-              width={40}
-              height={40}
               alt=""
               className="object-cover w-full h-full rounded-full"
             />

@@ -23,7 +23,7 @@ const Sidebar = () => {
       />
       <SidebarItem
         textContent={"Friends"}
-        linkValue="/friends/"
+        linkValue="/friends"
         Icon={UsersIcon}
       />
       <SidebarItem

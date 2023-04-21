@@ -7,7 +7,11 @@ import { verifyToken } from "../../state/requests/auth";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { refetchUser } from "../../state/requests/users";
 
-const Layout = ({ children }) => {
+type LayoutProps = {
+  children;
+  activePage?: "index" | "friends";
+};
+const Layout = ({ children, activePage = "index" }: LayoutProps) => {
   const authState = useAppSelector((state) => state.auth);
   const user = authState.user;
   const router = useRouter();
@@ -46,7 +50,7 @@ const Layout = ({ children }) => {
         <>
           {user && (
             <div>
-              <Navbar />
+              <Navbar activePage={activePage} />
               {children}
             </div>
           )}

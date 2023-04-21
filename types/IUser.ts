@@ -9,6 +9,7 @@ export type IUser = {
   profileImageId: string | null;
   coverImageUrl: string | null;
   coverImageId: string | null;
+  friends: string[] | IUser[];
   isAdmin: boolean;
   isSuperuser: boolean;
   isVerified: boolean;
