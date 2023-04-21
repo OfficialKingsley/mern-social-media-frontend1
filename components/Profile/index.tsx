@@ -20,7 +20,7 @@ const ProfilePage = () => {
   }, []);
 
   return (
-    <Layout>
+    <Layout activePage={null}>
       {foundUser && (
         <main className="h-screen overflow-y-auto">
           <TimelineHeader foundUser={foundUser} />
