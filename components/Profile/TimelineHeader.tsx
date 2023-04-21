@@ -32,7 +32,6 @@ const TimelineHeader = ({ foundUser }: { foundUser: IUser }) => {
   const dispatch = useAppDispatch();
 
   const addProfileImage = (e) => {
-    console.log("wow");
     e.preventDefault();
     const reader = new FileReader();
 
@@ -63,6 +62,7 @@ const TimelineHeader = ({ foundUser }: { foundUser: IUser }) => {
         { method: "PUT", body: formData }
       );
       const data = await res.json();
+      alert("Profile Image updated");
       setShowAddProfileImage(false);
       setActualProfileImage(null);
       setProfileImageData(null);
@@ -71,10 +71,11 @@ const TimelineHeader = ({ foundUser }: { foundUser: IUser }) => {
       dispatch(refetchUser());
     } catch (error) {
       setShowAddProfileImage(false);
+      alert("An error occurred");
     }
   };
   return (
-    <div className="px-44">
+    <div className="px-4 md:px-24 lg:px-44">
       {showAddProfileImage && (
         <div className="fixed z-50 p-4 -translate-x-1/2 -translate-y-1/2 bg-gray-500 top-1/2 left-1/2">
           <button
@@ -132,7 +133,7 @@ const TimelineHeader = ({ foundUser }: { foundUser: IUser }) => {
         <p>{foundUser.fullName}</p>
       </div>
       <div className="mt-6 border border-black border-opacity-10"></div>
-      <div className="flex justify-between">
+      <div className="justify-between hidden md:flex">
         <div className="flex">
           <TimelineNavItem text={"Posts"} isActive={true} />
           <TimelineNavItem text={"About"} />

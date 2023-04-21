@@ -54,7 +54,7 @@ const InputBox = () => {
   };
 
   return (
-    <form className="p-2 font-medium text-gray-500 bg-white shadow-md rounded-2xl">
+    <form className="w-full p-2 font-medium text-gray-500 bg-white shadow-md rounded-2xl">
       <div className="flex items-center gap-4 p-4">
         <Link href={`profile/${user?._id}`}>
           <Image

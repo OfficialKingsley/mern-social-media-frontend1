@@ -16,7 +16,7 @@ const Post = ({ post }: { post: IPost }) => {
     setLikeCount(post.likes.length);
   }, [post.likes]);
   return (
-    <div className="p-2 my-2 bg-white rounded-2xl">
+    <div className="w-full p-2 my-2 bg-white rounded-2xl">
       {/* Top */}
       <div className="flex gap-2 pb-2 mb-2 border-b">
         <Link href={`/profile/${author?._id}`}>
