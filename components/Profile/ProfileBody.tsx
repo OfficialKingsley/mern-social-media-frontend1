@@ -25,7 +25,7 @@ const ProfileBody = ({ foundUser }) => {
           <p>Lorem ipsum dolor sit amet.</p>
         </div>
       </div>
-      <div className="flex flex-col items-center w-full border-4 border-black h-fit">
+      <div className="flex flex-col items-center w-full h-fit">
         <InputBox />
         <div className="flex items-center justify-between w-full p-2 my-2 bg-white rounded-xl title">
           <h1 className="text-2xl font-bold">Posts</h1>
