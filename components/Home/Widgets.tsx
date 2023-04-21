@@ -7,7 +7,7 @@ import React from "react";
 import { useAppSelector } from "../../hooks/redux-toolkit";
 
 const Widgets = () => {
-  const friends = useAppSelector((state) => state.auth.user).friends;
+  const friends = useAppSelector((state) => state.auth.user)?.friends;
   return (
     <div className="flex-col hidden p-4 border-4 border-black lg:flex w-80">
       <div className="">
